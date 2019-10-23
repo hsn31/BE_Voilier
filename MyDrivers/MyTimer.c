@@ -1,13 +1,13 @@
 // TOUT A FAIRE !! //
 
 /*
- indispensable pour pouvoir adresser les registres des périphériques.
- Rem : OBLIGATION d'utiliser les définitions utiles contenues dans ce fichier (ex : TIM_CR1_CEN, RCC_APB1ENR_TIM2EN ...)
- pour une meilleure lisibilité du code.
+ indispensable pour pouvoir adresser les registres des pÃ©riphÃ©riques.
+ Rem : OBLIGATION d'utiliser les dÃ©finitions utiles contenues dans ce fichier (ex : TIM_CR1_CEN, RCC_APB1ENR_TIM2EN ...)
+ pour une meilleure lisibilitÃ© du code.
 
- Pour les masques, utiliser également les définitions proposée
- Rappel : pour mettre à 1  , reg = reg | Mask (ou Mask est le représente le ou les bits à positionner à 1)
-				  pour mettre à 0  , reg = reg&~ Mask (ou Mask est le représente le ou les bits à positionner à 0)
+ Pour les masques, utiliser Ã©galement les dÃ©finitions proposÃ©e
+ Rappel : pour mettre Ã  1  , reg = reg | Mask (ou Mask est le reprÃ©sente le ou les bits Ã  positionner Ã  1)
+				  pour mettre Ã  0  , reg = reg&~ Mask (ou Mask est le reprÃ©sente le ou les bits Ã  positionner Ã  0)
  
 */ 
 
@@ -16,7 +16,7 @@
 #include "stm32f1xx_ll_tim.h" 
 
 
-// variable pointeur de fonction permettant de mémoriser le callback à appeler depuis
+// variable pointeur de fonction permettant de mÃ©moriser le callback Ã  appeler depuis
 // le handler d'IT
 void (*Ptr_ItFct_TIM1)(void); 
 void (*Ptr_ItFct_TIM2)(void); 
@@ -27,11 +27,11 @@ void (*Ptr_ItFct_TIM4)(void);
 
 
 /**
-	* @brief  Active l'horloge et règle l'ARR et le PSC du timer visé
-  * @note   Fonction à lancer avant toute autre. Le timer n'est pas encore lancé (voir MyTimerStart)
-	* @param  TIM_TypeDef Timer : indique le timer à utiliser par le chronomètre, TIM1, TIM2, TIM3 ou TIM4
-	* 				int Arr   : valeur à placer dans ARR
-	*					int Psc   : valeur à placer dans PSC
+	* @brief  Active l'horloge et rÃ¨gle l'ARR et le PSC du timer visÃ©
+  * @note   Fonction Ã  lancer avant toute autre. Le timer n'est pas encore lancÃ© (voir MyTimerStart)
+	* @param  TIM_TypeDef Timer : indique le timer Ã  utiliser par le chronomÃ¨tre, TIM1, TIM2, TIM3 ou TIM4
+	* 				int Arr   : valeur Ã  placer dans ARR
+	*					int Psc   : valeur Ã  placer dans PSC
   * @retval None
   */
 void MyTimer_Conf(TIM_TypeDef * Timer,int Arr, int Psc)
@@ -66,9 +66,9 @@ void MyTimer_Conf(TIM_TypeDef * Timer,int Arr, int Psc)
 
 
 /**
-	* @brief  Démarre le timer considéré
+	* @brief  DÃ©marre le timer considÃ©rÃ©
   * @note   
-	* @param  TIM_TypeDef Timer : indique le timer à utiliser par le chronomètre, TIM1, TIM2, TIM3 ou TIM4
+	* @param  TIM_TypeDef Timer : indique le timer Ã  utiliser par le chronomÃ¨tre, TIM1, TIM2, TIM3 ou TIM4
   * @retval None
   */
 void MyTimer_Start(TIM_TypeDef * Timer)
@@ -77,9 +77,9 @@ void MyTimer_Start(TIM_TypeDef * Timer)
 }
 
 /**
-	* @brief  Arrêt le timer considéré
+	* @brief  ArrÃªt le timer considÃ©rÃ©
   * @note   
-	* @param  TIM_TypeDef Timer : indique le timer à utiliser par le chronomètre, TIM1, TIM2, TIM3 ou TIM4
+	* @param  TIM_TypeDef Timer : indique le timer Ã  utiliser par le chronomÃ¨tre, TIM1, TIM2, TIM3 ou TIM4
   * @retval None
   */
 void MyTimer_Stop(TIM_TypeDef * Timer)
@@ -89,11 +89,11 @@ void MyTimer_Stop(TIM_TypeDef * Timer)
 
 
 /**
-	* @brief  Configure le Timer considéré en interruption sur débordement.
-  * @note   A ce stade, les interruptions ne sont pas validés (voir  MyTimer_IT_Enable )
-	* @param  TIM_TypeDef Timer : indique le timer à utiliser par le chronomètre, TIM1, TIM2, TIM3 ou TIM4
-	* 				void (*IT_function) (void) : nom (adresse) de la fonction à lancer sur interruption
-	*         int Prio : priorité associée à l'interruption
+	* @brief  Configure le Timer considÃ©rÃ© en interruption sur dÃ©bordement.
+  * @note   A ce stade, les interruptions ne sont pas validÃ©s (voir  MyTimer_IT_Enable )
+	* @param  TIM_TypeDef Timer : indique le timer Ã  utiliser par le chronomÃ¨tre, TIM1, TIM2, TIM3 ou TIM4
+	* 				void (*IT_function) (void) : nom (adresse) de la fonction Ã  lancer sur interruption
+	*         int Prio : prioritÃ© associÃ©e Ã  l'interruption
   * @retval None
   */
 void MyTimer_IT_Conf(TIM_TypeDef * Timer, void (*IT_function) (void),int Prio)
@@ -105,7 +105,7 @@ void MyTimer_IT_Conf(TIM_TypeDef * Timer, void (*IT_function) (void),int Prio)
 	else  Ptr_ItFct_TIM4=IT_function;
 
 	
-	// Blocage IT (il faudra la débloquer voir fct suivante)
+	// Blocage IT (il faudra la dÃ©bloquer voir fct suivante)
 	LL_TIM_DisableIT_UPDATE(Timer);
 	
 	// validation du canal NVIC
@@ -126,7 +126,7 @@ void MyTimer_IT_Conf(TIM_TypeDef * Timer, void (*IT_function) (void),int Prio)
 /**
 	* @brief  Autorise les interruptions
   * @note   
-	* @param  TIM_TypeDef Timer : indique le timer à utiliser par le chronomètre, TIM1, TIM2, TIM3 ou TIM4
+	* @param  TIM_TypeDef Timer : indique le timer Ã  utiliser par le chronomÃ¨tre, TIM1, TIM2, TIM3 ou TIM4
   * @retval None
   */
 void MyTimer_IT_Enable(TIM_TypeDef * Timer)
@@ -138,7 +138,7 @@ void MyTimer_IT_Enable(TIM_TypeDef * Timer)
 /**
 	* @brief  Interdit les interruptions
   * @note   
-	* @param  TIM_TypeDef Timer : indique le timer à utiliser par le chronomètre, TIM1, TIM2, TIM3 ou TIM4
+	* @param  TIM_TypeDef Timer : indique le timer Ã  utiliser par le chronomÃ¨tre, TIM1, TIM2, TIM3 ou TIM4
   * @retval None
   */
 void MyTimer_IT_Disable(TIM_TypeDef * Timer)
@@ -147,9 +147,9 @@ void MyTimer_IT_Disable(TIM_TypeDef * Timer)
 }	
 
 /**
-	* @brief Configure la télécommande
-	* @note Timer 4 à utiliser, Channel 1 et broche PB6	
-	* @param angle voulu : 0° == tout droit -90° == à gauche 90° == à droite 
+	* @brief Configure la tÃ©lÃ©commande
+	* @note Timer 4 Ã  utiliser, Channel 1 et broche PB6	
+	* @param angle voulu : 0Â° == tout droit -90Â° == Ã  gauche 90Â° == Ã  droite 
 	*/
 
 void MyTimer_PWM_Command_Input(int angle) {
@@ -157,11 +157,8 @@ void MyTimer_PWM_Command_Input(int angle) {
 	RCC->APB1ENR |= RCC_APB1ENR_TIM4EN ;
 	
 	//pwm ratio compris entre 1 et 2 ms. 
-	float pwm_ratio = 1.0 + (90 + angle%180)/180.0 ;   
-	int pwm_ticks = pwm_ratio 
-	int pwm_period = 20 ;
+	int pwm_ticks = (4*(270+angle)/75) ; 
 	
-	//
 	TIM4->CCMR1 |= TIM4->CCMR1 | TIM_CCMR1_CC1S_0 ;
 	TIM4->CCMR1 &= TIM4->CCMR1 | ~TIM_CCMR1_CC1S_1 ;
 	
@@ -189,13 +186,15 @@ void MyTimer_PWM_Command_Input(int angle) {
 	TIM4->CCER |= TIM4->CCER | TIM_CCER_CC1E;
 	TIM4->CCER |= TIM4->CCER | TIM_CCER_CC2E;
 
-	TIM4->CCR1 &= TIM4->CCR1 | ~TIM_CCR1_CCR1;
-	TIM4->CCR1 |= TIM4->CCR1 | (11000000 << TIM_CCR1_CCR1_Pos) ;; 
+	/*	TIM4->CCR1 &= TIM4->CCR1 | ~TIM_CCR1_CCR1;
+	TIM4->CCR1 |= TIM4->CCR1 | (192 << TIM_CCR1_CCR1_Pos) ; 
 	
 	TIM4->CCR2 &= TIM4->CCR2 | ~TIM_CCR2_CCR2;
+	TIM4->CCR2 |= TIM4->CCR2 | (pwm_ticks << TIM_CCR2_CCR2_Pos) ; */
 
 
 }
+
 
 /*
 ============ LES INTERRUPTIONS =================================
